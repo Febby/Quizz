@@ -4,7 +4,8 @@ import { fetchQuizQuestions } from './QuizApi';
 import QuestionCard from './components/QuestionCard';
 //types
 import { QuestionState, Difficulty } from './QuizApi';
-import { setSourceMapRange } from 'typescript';
+//styles
+import { GlobalStyle, Wrapper } from './App.styles';
 
 export type AnswerObject = {
   question: string;
@@ -76,9 +77,11 @@ const App = () => {
     }
 
   }
-
+  // Add empty fragment because JSX can only output one element
   return (
-    <div className="App">
+    <>
+    <GlobalStyle />
+    <Wrapper>
       <h1>Quizz</h1>
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
       <button className="start" onClick={startTrivia}>
@@ -86,7 +89,7 @@ const App = () => {
       </button>
       ) : null }
 
-      {!gameOver ? <p className="score">Score</p> : null}
+      {!gameOver ? <p className="score">Score {score}</p> : null}
       
       {loading && <p>Loading Questions...</p>}
       {!loading && !gameOver && (
@@ -104,7 +107,8 @@ const App = () => {
         Next Question
       </button>
       ) : null}
-    </div>
+    </Wrapper>
+    </>
   );
 }
 
